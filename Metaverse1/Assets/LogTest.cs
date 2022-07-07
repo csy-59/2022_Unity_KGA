@@ -1,49 +1,86 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class LogTest : MonoBehaviour
 {
-    private void Awake()
-    {
-        Debug.Log("¿©±â´Â Awake");
-    }
-    private void OnEnable()
-    {
-        Debug.Log("OnEable()");
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        Debug.Log("Start()");
-        // ¿¡·¯ ·Î±×
-        //Debug.LogError("ÅÂ½ºÆ®¸¦ À§ÇÑ ¿¡·¯ º¸°í");
+    public int Number;
+    Transform pos;
 
-        Destroy(gameObject, 3f); 
-        // gameObject == ÇØ´ç ÄÄÆ÷³ÍÆ®¸¦ °®°í ÀÖ´Â °ÔÀÓ ¿ÀºêÁ§Æ®¸¦ ÀÇ¹Ì(Cube)
-        // 3f => 3ÃÊ µÚ¿¡ ÀÚ±âÀÚ½ÅÀ» ÆÄ±«
+    private void Start()
+    {
+        pos = GetComponent<Transform>();
+        /*
+        // ì •ìˆ˜
+        byte b = 15;
+        int i = 0x20;
+        long l = 0b_1000_0101;
+        Debug.Log($"byte: {b}");
+        Debug.Log($"int: {i}");
+        Debug.Log($"long: {l}");
+
+        // ë¶€ë™ ì†Œìˆ˜ì 
+        float f = 13.34f;
+        Debug.Log($"float: {f}");
+
+        // ë¶ˆë¦¬ì–¸
+        bool bo = true;
+        Debug.Log($"bool: {bo}");
+
+        // ë¬¸ì
+        char c = 'â˜¹';
+        Debug.Log($"char: {c}");
+
+        //ë¬¸ìì—´
+        string s = "ì§‘ì—ê°€ê³ ì‹¶ë‹¤";
+        Debug.Log($"'{s}'ì˜ ê¸¸ì´: {s.Length}");
+
+        string s1 = "     Hello     ";
+        Debug.Log($"{s1.ToLower()}");
+        Debug.Log($"{s1.ToUpper()}");
+        Debug.Log($"{s1.Trim()}");
+
+        if(s1 == "H")
+        {
+            Debug.Log("s1 is H");
+        }
+
+        if(s1.StartsWith("H"))
+        {
+            Debug.Log("s1 is starts with H");
+        }
+
+        if(s1.EndsWith("o"))
+        {
+            Debug.Log("s1 is ends with o");
+        }
+        */
+
+
     }
+
     private void FixedUpdate()
     {
-        Debug.Log("FixedUpdate()");
+        pos.position = new Vector3(pos.position.x, pos.position.y + 1, pos.position.z);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        Debug.Log("Update()");
+        Debug.Log($"{pos.transform.position.y}");
+        //switch(Number)
+        //{
+        //    case > 10:
+        //        Debug.Log($"10ë³´ë‹¤ í¼({Number})");
+        //        break;
+        //    case > 5:
+        //        Debug.Log($"5ë³´ë‹¤ í¼({Number})");
+        //        break;
+        //    default:
+        //        Debug.Log($"5ì™€ ê°™ê±°ë‚˜ ì‘ìŒ({Number})");
+        //        break;
+        //}
     }
 
-    private void LateUpdate()
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("LateUpdate()");
-    }
-
-    private void OnDisable()
-    {
-        Debug.Log("OnDisable()");
-    }
-
-    private void OnDestroy()
-    {
-        Debug.Log("OnDestroy()");
+        
     }
 }
