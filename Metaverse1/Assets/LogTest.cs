@@ -3,14 +3,42 @@ using UnityEngine;
 
 public class LogTest : MonoBehaviour
 {
-    Rigidbody rigid;
+    public Rigidbody rigid;
     public int Number;
+    public float numberf;
+    public bool isNumber;
+    public string str;
+
     int preNum;
     float maxHeight;
     bool hasBounced;
 
+    /*
+    //클래스 실습
+    class Person
+    {
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {SecondName}";
+            }
+        }
+    }*/
+
+    private void Awake()
+    {
+
+        Debug.Log($"{rigid.position}, {numberf}, {Number}, {isNumber}, {str}");
+
+    }
+
     private void Start()
     {
+        Debug.Log($"{rigid.position}, {numberf}, {Number}, {isNumber}, {str}");
+
         /*
         // 정수
         byte b = 15;
@@ -96,10 +124,17 @@ public class LogTest : MonoBehaviour
         Boo(a, b);
         */
 
+        /*
         //이렇게 컴포넌트를 가져올 수 있다.
         rigid = GetComponent<Rigidbody>();
         maxHeight = 0;
         hasBounced = false;
+        */
+        /*
+        Person person = new Person();
+
+        person.FirstName = "SeonMun";
+        person.SecondName = "Choi";*/
     }
 
     private void FixedUpdate()
