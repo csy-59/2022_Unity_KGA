@@ -1,13 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class LogTest : MonoBehaviour
 {
+    Rigidbody rigid;
     public int Number;
-    Transform pos;
+    int preNum;
+    float maxHeight;
+    bool hasBounced;
 
     private void Start()
     {
-        pos = GetComponent<Transform>();
         /*
         // 정수
         byte b = 15;
@@ -54,33 +57,89 @@ public class LogTest : MonoBehaviour
         }
         */
 
+        /*
+        // 배열 실습
+        int[] arr = new int[5] { 3, 1, 4, 5, 2 };
 
+        for(int i = 0; i<arr.Length; ++i)
+        {
+            Debug.Log($"{arr[i]}");
+        }
+
+        Array.Sort(arr);
+
+        for (int i = 0; i < arr.Length; ++i)
+        {
+            Debug.Log($"{arr[i]}");
+        }
+
+        // 다차원 배열
+        int[,] arr2 = new int[2, 5];
+
+        // 가변 배열
+        int[][] arr3 = new int[arr.Length][];
+
+        for(int i = 0; i<arr3.Length; ++i)
+        {
+            arr3[i] = new int[arr[i]];
+        }
+
+        //함수 실습
+        int a = 10;
+        int b = 20;
+        int result;
+        Debug.Log($"a = {a}, b = {b}");
+        Swap(ref a, ref b);
+        Debug.Log($"a = {a}, b = {b}");
+        Foo(a, b, out result);
+        Debug.Log($"Foo out result = {result}");
+        Boo(a, b);
+        */
+
+        //이렇게 컴포넌트를 가져올 수 있다.
+        rigid = GetComponent<Rigidbody>();
+        maxHeight = 0;
+        hasBounced = false;
     }
 
     private void FixedUpdate()
     {
-        pos.position = new Vector3(pos.position.x, pos.position.y + 1, pos.position.z);
+        if(Number != 0)
+        {
+            rigid.AddForce(0, Number, 0, ForceMode.Impulse);
+            preNum = Number;
+            Number = 0;
+            hasBounced = true;
+        }
     }
 
     private void Update()
     {
-        Debug.Log($"{pos.transform.position.y}");
-        //switch(Number)
-        //{
-        //    case > 10:
-        //        Debug.Log($"10보다 큼({Number})");
-        //        break;
-        //    case > 5:
-        //        Debug.Log($"5보다 큼({Number})");
-        //        break;
-        //    default:
-        //        Debug.Log($"5와 같거나 작음({Number})");
-        //        break;
-        //}
+        if(rigid.velocity.y > 0)
+        {
+            maxHeight = rigid.position.y;
+        }
+        else if(hasBounced)
+        {
+            hasBounced = false;
+            Debug.Log($"{preNum}: {maxHeight}");
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    void Swap(ref int a, ref int b)
     {
-        
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+
+    void Foo(int a, int b, out int result)
+    {
+        result = a + b;
+    }
+
+    void Boo(in int a, in int b)
+    {
+        Debug.Log($"{a}, {b}");
     }
 }
