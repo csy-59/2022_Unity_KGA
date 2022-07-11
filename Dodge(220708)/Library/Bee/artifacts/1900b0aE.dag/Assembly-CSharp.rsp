@@ -353,6 +353,8 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/Script/Bullet/BulletMovement.cs"
 "Assets/Script/Bullet/BulletSpawner.cs"
+"Assets/Script/GameManager/GameManager.cs"
+"Assets/Script/LevelRotation.cs"
 "Assets/Script/Player/PlayerHealth.cs"
 "Assets/Script/Player/PlayerInput.cs"
 "Assets/Script/Player/PlayerMovement.cs"
