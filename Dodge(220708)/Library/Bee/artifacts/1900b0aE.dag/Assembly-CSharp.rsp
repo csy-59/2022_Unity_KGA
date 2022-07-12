@@ -358,7 +358,9 @@
 "Assets/Script/Player/PlayerHealth.cs"
 "Assets/Script/Player/PlayerInput.cs"
 "Assets/Script/Player/PlayerMovement.cs"
+"Assets/Script/Pro_Bullet/Bullet.cs"
 "Assets/Script/Pro_Bullet/CollisionTest.cs"
+"Assets/Script/Pro_Bullet/Pro_Spwaner.cs"
 -langversion:9.0
 
 /deterministic

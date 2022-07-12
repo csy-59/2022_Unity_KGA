@@ -12,4 +12,12 @@ public class PlayerHealth : MonoBehaviour
         GameManager gm = FindObjectOfType<GameManager>();
         gm.EndGame();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Bullet")
+        {
+            Die();
+        }
+    }
 }
