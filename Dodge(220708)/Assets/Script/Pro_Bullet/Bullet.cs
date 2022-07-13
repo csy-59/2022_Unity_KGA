@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float Speed = 0.1f;
+    public float Speed = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         // 본인 기준 앞은 z 축. 즉, 월드 좌표가 아닌 자신 좌표 기준 앞으로 나아간다.
-        transform.Translate(0f, 0f, Speed); //한 프레임 당 1유닛씩 움직임
+        transform.Translate(0f, 0f, Speed * Time.deltaTime); //한 프레임 당 1유닛씩 움직임
     }
 
     /*
