@@ -107,7 +107,6 @@ public class PlayerController : MonoBehaviour {
         {
             isGrounded = true;
             jumpCount = 0;
-            GameManager.Instance.AddScore();
         }
     }
 

@@ -255,8 +255,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScoreIncreaseAmount: 1
-  scoreText: {fileID: 745952790}
-  gameoverUI: {fileID: 1867296895}
+  OnScoreChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGameOver:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &384684002
 Transform:
   m_ObjectHideFlags: 0
@@ -289,7 +293,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &485269578
 RectTransform:
   m_ObjectHideFlags: 0
@@ -716,7 +720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &866659521
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1583,7 +1587,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1867296896
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1615,6 +1619,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1867296895}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50557ad311093bf4cb55a45cb101ea1e, type: 3}
+  m_Script: {fileID: 11500000, guid: 02718891d21cef444ac0afb5338e7244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

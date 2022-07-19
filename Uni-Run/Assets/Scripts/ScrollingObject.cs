@@ -7,5 +7,10 @@ public class ScrollingObject : MonoBehaviour {
     private void Update() {
         // 게임 오브젝트를 왼쪽으로 일정 속도로 평행 이동하는 처리
         transform.Translate(speed * Time.deltaTime * -1f, 0f, 0f);
+
+        if(transform.position.x <= -20f)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
