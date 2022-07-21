@@ -2,7 +2,8 @@
 
 // 플레이어 캐릭터를 사용자 입력에 따라 움직이는 스크립트
 public class PlayerMovement : MonoBehaviour {
-    public float MoveSpeed = 5f; // 앞뒤 움직임의 속도
+    [SerializeField] //에디터 상에서의 편집기능은 사용
+    private float MoveSpeed = 5f; // 앞뒤 움직임의 속도
     public float RotateSpeed = 180f; // 좌우 회전 속도
 
     private PlayerInput input; // 플레이어 입력을 알려주는 컴포넌트
@@ -34,12 +35,19 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     // 입력값에 따라 캐릭터를 앞뒤로 움직임
-    private void move() {
-        Vector3 moveDirection = transform.forward * MoveSpeed * input.MoveDirection * Time.fixedDeltaTime;
-        rigid.MovePosition(rigid.position + moveDirection);
+    private void move() 
+    {
+        // Vector3가 앞으로 오면 백터 연산 호출이 자꾸 되어서 Vector3는 뒤로 가는 것이 좋다
+        Vector3 offset = MoveSpeed * input.MoveDirection * Time.fixedDeltaTime * transform.forward;
+
+        rigid.MovePosition(rigid.position + offset);
     }
 
     // 입력값에 따라 캐릭터를 좌우로 회전
-    private void rotate() {
+    private void rotate() 
+    {
+        Quaternion offset = Quaternion.Euler(0f, RotateSpeed * input.RotateDirection * Time.fixedDeltaTime, 0f);
+
+        rigid.MoveRotation(rigid.rotation * offset);
     }
 }

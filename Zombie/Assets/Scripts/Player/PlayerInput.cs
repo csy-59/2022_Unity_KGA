@@ -11,7 +11,7 @@ public class PlayerInput : MonoBehaviour
 
     // 값 할당은 내부에서만 가능
     public float MoveDirection { get; private set; } // 감지된 움직임 입력값
-    public float Rotate { get; private set; } // 감지된 회전 입력값
+    public float RotateDirection { get; private set; } // 감지된 회전 입력값
     public bool CanFire { get; private set; } // 감지된 발사 입력값
     public bool CanReload { get; private set; } // 감지된 재장전 입력값
 
@@ -22,7 +22,7 @@ public class PlayerInput : MonoBehaviour
         if (GameManager.Instance.IsGameover)
         {
             MoveDirection = 0;
-            Rotate = 0;
+            RotateDirection = 0;
             CanFire = false;
             CanReload = false;
             return;
@@ -31,7 +31,7 @@ public class PlayerInput : MonoBehaviour
         // move에 관한 입력 감지
         MoveDirection = Input.GetAxis(MoveAxisName);
         // rotate에 관한 입력 감지
-        Rotate = Input.GetAxis(RotateAxisName);
+        RotateDirection = Input.GetAxis(RotateAxisName);
         // fire에 관한 입력 감지
         CanFire = Input.GetButton(FireButtonName);
         // reload에 관한 입력 감지

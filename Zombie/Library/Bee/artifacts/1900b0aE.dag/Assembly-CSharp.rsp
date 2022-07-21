@@ -365,7 +365,8 @@
 "Assets/Scripts/Enemy.cs"
 "Assets/Scripts/EnemySpawner.cs"
 "Assets/Scripts/GameManager.cs"
-"Assets/Scripts/Gun.cs"
+"Assets/Scripts/Gun/Gun.cs"
+"Assets/Scripts/Gun/GunData.cs"
 "Assets/Scripts/HealthPack.cs"
 "Assets/Scripts/IDamageable.cs"
 "Assets/Scripts/IItem.cs"
@@ -378,6 +379,7 @@
 "Assets/Scripts/Rotator.cs"
 "Assets/Scripts/UIManager.cs"
 "Assets/Scripts/Util/SingletonBehaviour.cs"
+"Assets/Scripts/Util/temp.cs"
 -langversion:9.0
 
 /deterministic
