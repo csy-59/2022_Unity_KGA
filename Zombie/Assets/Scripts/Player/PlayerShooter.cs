@@ -3,32 +3,49 @@
 // 주어진 Gun 오브젝트를 쏘거나 재장전
 // 알맞은 애니메이션을 재생하고 IK를 사용해 캐릭터 양손이 총에 위치하도록 조정
 public class PlayerShooter : MonoBehaviour {
-    public Gun gun; // 사용할 총
-    public Transform gunPivot; // 총 배치의 기준점
-    public Transform leftHandMount; // 총의 왼쪽 손잡이, 왼손이 위치할 지점
-    public Transform rightHandMount; // 총의 오른쪽 손잡이, 오른손이 위치할 지점
+    public Transform GunPivot; // 총 배치의 기준점
+    public Transform LeftHandMount; // 총의 왼쪽 손잡이, 왼손이 위치할 지점
+    public Transform RightHandMount; // 총의 오른쪽 손잡이, 오른손이 위치할 지점
 
-    private PlayerInput playerInput; // 플레이어의 입력
-    private Animator playerAnimator; // 애니메이터 컴포넌트
+    private Gun gun; // 사용할 총
+    private PlayerInput input; // 플레이어의 입력
+    private Animator animator; // 애니메이터 컴포넌트
 
-    private void Start() {
-        // 사용할 컴포넌트들을 가져오기
-        playerInput = GetComponent<PlayerInput>();
-        playerAnimator = GetComponent<Animator>();
+    private void Awake()
+    {
+        gun = GetComponentInChildren<Gun>();
+        input = GetComponent<PlayerInput>();
+        animator = GetComponent<Animator>();
     }
 
-    private void OnEnable() {
+    private void OnEnable() 
+    {
         // 슈터가 활성화될 때 총도 함께 활성화
         gun.gameObject.SetActive(true);
     }
     
-    private void OnDisable() {
+    private void OnDisable() 
+    {
         // 슈터가 비활성화될 때 총도 함께 비활성화
         gun.gameObject.SetActive(false);
     }
 
-    private void Update() {
+    private void Update() 
+    {
         // 입력을 감지하고 총 발사하거나 재장전
+        if(input.CanFire)
+        {
+            gun.Fire();
+        }
+
+        if(input.CanReload)
+        {
+            if(gun.TryReload())
+            {
+                // 재장전을 했을 경우 애니메이션 설정
+                animator.SetTrigger(PlayerAnimID.Reload);
+            }
+        }
     }
 
     // 탄약 UI 갱신
@@ -42,6 +59,14 @@ public class PlayerShooter : MonoBehaviour {
 
     // 애니메이터의 IK 갱신
     private void OnAnimatorIK(int layerIndex) {
-        
+        // 총의 위치 정렬. 왼손 팔꿈치에 맞춰서 이동함
+        GunPivot.position = animator.GetIKHintPosition(AvatarIKHint.RightElbow);
+
+        // 손 위치 정렬
+        // 왼손
+        animator.SetIKPositionAndWeight(AvatarIKGoal.LeftHand, LeftHandMount.position, 1f);
+        animator.SetIKRotationAndWeight(AvatarIKGoal.LeftHand, LeftHandMount.rotation, 1f);
+        // 오른손
+        animator.SetIKTransformAndWeight(AvatarIKGoal.RightHand, RightHandMount, 1f);
     }
 }

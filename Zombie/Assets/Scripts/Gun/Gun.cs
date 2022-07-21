@@ -148,7 +148,7 @@ public class Gun : MonoBehaviour {
         yield return new WaitForSeconds(Data.ReloadTime);
 
         // 총알을 잘 채워야 함
-        int ammoToFill = remainAmmo % Data.MagazineCapacity;
+        int ammoToFill = Mathf.Min(Data.MagazineCapacity - currentAmmo, remainAmmo);
         currentAmmo += ammoToFill;
         remainAmmo -= ammoToFill;
 
