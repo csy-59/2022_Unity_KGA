@@ -88,4 +88,9 @@ public class PlayerHealth : LivingEntity {
         item?.Use(gameObject);
         audioSource.PlayOneShot(ItemPickupClip);
     }
+
+    private void Update()
+    {
+        HealthSlider.transform.position = transform.position;
+    }
 }

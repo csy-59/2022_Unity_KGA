@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 // 플레이어 캐릭터를 사용자 입력에 따라 움직이는 스크립트
 public class PlayerMovement : MonoBehaviour {
@@ -6,6 +7,7 @@ public class PlayerMovement : MonoBehaviour {
     private float MoveSpeed = 5f; // 앞뒤 움직임의 속도
     public float RotateSpeed = 180f; // 좌우 회전 속도
 
+    private NavMeshAgent navMeshAgent;
     private PlayerInput input; // 플레이어 입력을 알려주는 컴포넌트
     private Rigidbody rigid; // 플레이어 캐릭터의 리지드바디
     private Animator animator; // 플레이어 캐릭터의 애니메이터
@@ -16,6 +18,7 @@ public class PlayerMovement : MonoBehaviour {
         input = GetComponent<PlayerInput>();
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     // FixedUpdate는 물리 갱신 주기(50fps. 설정에서 변경가능)에 맞춰 실행됨
@@ -33,9 +36,28 @@ public class PlayerMovement : MonoBehaviour {
     private void move() 
     {
         // Vector3가 앞으로 오면 백터 연산 호출이 자꾸 되어서 Vector3는 뒤로 가는 것이 좋다
-        Vector3 offset = MoveSpeed * input.MoveDirection * Time.fixedDeltaTime * transform.forward;
+        //Vector3 offset = MoveSpeed * input.MoveDirection * Time.fixedDeltaTime * transform.forward;
+        //
+        //rigid.MovePosition(rigid.position + offset);
 
-        rigid.MovePosition(rigid.position + offset);
+        if(Input.GetMouseButtonDown(0))
+        {
+            LayerMask targetLayer = LayerMask.NameToLayer("Ground");
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray.origin, ray.direction, out hit, 100f))
+            {
+                if (hit.collider.gameObject.layer != targetLayer.value)
+                {
+                    return;
+                }
+
+                navMeshAgent.isStopped = false;
+                navMeshAgent.SetDestination(hit.point);
+            }
+        }
+        animator.SetFloat(PlayerAnimID.Move, navMeshAgent.speed);
+        
     }
 
     // 입력값에 따라 캐릭터를 좌우로 회전

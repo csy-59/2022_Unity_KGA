@@ -36,5 +36,9 @@ public class PlayerInput : MonoBehaviour
         CanFire = Input.GetButton(FireButtonName);
         // reload에 관한 입력 감지
         CanReload = Input.GetButtonDown(ReloadButtonName);
+
+        // 마우스 포인터가 메인 카메라의 어느 위치에 있는지에 관한 ray를 얻음
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red);
     }
 }
