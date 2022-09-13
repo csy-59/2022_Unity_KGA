@@ -1,7 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
+// 다음의 GameData는 시리얼 라이저블 하다.
+[Serializable]
+public class GameData
+{
+    public int BGM_Volume = 0;
+    public int Effect_Volume = 0;
+
+    public int gold = 0;
+    public int hp = 10;
+    public float moveSpeed = 5f;
+
+    public List<MonsterData> monsterKillDatas;
+
+    public GameData(int _gold, int _hp, float _moveSpeed)
+    {
+        gold = _gold;
+        hp = _hp;
+        moveSpeed = _moveSpeed;
+
+        monsterKillDatas = new List<MonsterData>();
+    }
+}
+
+[Serializable]
 public class MonsterData
 {
     public int index;
@@ -45,7 +71,75 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    // 데이터 파일 이름
+    GameData gameDatas;
+    public GameData GameData
+    {
+        get
+        {
+            if(gameDatas == null)
+            {
+                // 만약 아직 gameData가 없다면 생성한다.
+                LoadGameData(); // 파일이 없어도 자동으로 만들어짐
+                SaveGameData(); //
+            }
+
+            return gameDatas;
+        }
+
+
+    }
+
+    void InitGameData()
+    {
+        gameDatas = new GameData(100, 300, 5f);
+
+        gameDatas.monsterKillDatas.Add(new MonsterData(1, "전지윤", 2f, 1f, "오늘 안옴"));
+        gameDatas.monsterKillDatas.Add(new MonsterData(2, "권희영", 2f, 1f, "오늘 안옴"));
+    }
+
+    public void SaveGameData()
+    {
+
+        if(gameDatas == null)
+        {
+            InitGameData();
+        }
+
+        // Json 타입으로 파일을 저장할 것!
+        string toJsonData = JsonUtility.ToJson(gameDatas, true); // 이쁘게 gameDatas를 Json 타입으로 변환 (반환은 string)
+        string filePath = Application.persistentDataPath + GameDataFileName; // 플렛폼에 따라 저장 위치를 지정해줌
+        // c://user/USER/~~프로젝트 명으로
+        //해당 경로에 Json 타입으로 변환된 gameDatas를 저장함
+        File.WriteAllText(filePath, toJsonData);
+    }
+
+    public void LoadGameData()
+    {
+        string filePath = Application.persistentDataPath + GameDataFileName;
+
+        // 예외 처리: 파일이 없는 경우. 파일이 있으면 true 반환
+        if(File.Exists(filePath))
+        {
+            string fromJsonData = File.ReadAllText(filePath);
+            // 받아온 데이터를 다시 GameData 타입으로 변환
+            gameDatas = JsonUtility.FromJson<GameData>(fromJsonData);
+
+            // 데이터가 없는 파일이었을 경우
+            if(gameDatas == null)
+            {
+                InitGameData();
+            }
+        }
+        else
+        {
+            InitGameData();
+        }
+
+        
+    }
+
+
+    // 데이터 파일 이름(확장자 붙여주기 위한 용도)
     public string GameDataFileName = ".json";
 
     [Header("몬스터 관련 DB")]

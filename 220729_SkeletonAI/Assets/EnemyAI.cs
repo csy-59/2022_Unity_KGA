@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum EnemyState
 {
@@ -19,6 +20,7 @@ public class EnemyAI : MonoBehaviour
     public EnemyState prevState = EnemyState.None;
 
     Animator animator;
+
 
     // 이동관련
     Vector3 targetPos;
@@ -39,9 +41,13 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
+        DataManager.Instance.SaveGameData();
+
         MonsterData data = DataManager.Instance.GetMonsterData(1);
         moveSpeed = data.moveSpeed;
         rotationSpeed = data.rotationSpeed;
+
+        GetHelp.AddListener(BeingAttacked);
     }
 
     // Start is called before the first frame update
@@ -61,7 +67,7 @@ public class EnemyAI : MonoBehaviour
                 break;
             }
         }
-        weaponCollider.SetActive(false);
+        //weaponCollider.SetActive(false);
 
         ChangeState(EnemyState.Idle);
     }
@@ -78,6 +84,13 @@ public class EnemyAI : MonoBehaviour
             case EnemyState.KnockBack: UpdateKnockBack(); break;
             case EnemyState.Hide: UpdateHide(); break;
         }
+
+
+        if (isNeedHelp)
+        {
+            ChangeState(EnemyState.Run);
+            return;
+        }
     }
 
     #region UpdateDetail
@@ -88,7 +101,8 @@ public class EnemyAI : MonoBehaviour
     }
     void UpdateWalk()
     {
-        if (IsFindEnemy())
+        //if (IsFindEnemy())
+        if (isNeedHelp)
         {
             ChangeState(EnemyState.Run);
             return;
@@ -263,6 +277,23 @@ public class EnemyAI : MonoBehaviour
         else
         {
             weaponCollider.SetActive(false);
+        }
+    }
+
+    // 이벤트 실습
+    private static UnityEvent GetHelp = new UnityEvent();
+    private bool isNeedHelp = false;
+    private void BeingAttacked()
+    {
+        Debug.Log(gameObject.name);
+        isNeedHelp = true;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject == target)
+        {
+            GetHelp.Invoke();
         }
     }
 }

@@ -31,4 +31,9 @@ public class UIManager : MonoBehaviour
         SelectedID = index;
         Characters[SelectedID].SetActive(true);
     }
+
+    public void UIMgrSelectCharacter()
+    {
+        Characters[SelectedID].GetComponent<CharacterRotate>().IsSelected = true;
+    }
 }

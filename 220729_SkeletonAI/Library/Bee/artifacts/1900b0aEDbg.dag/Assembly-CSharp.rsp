@@ -117,7 +117,7 @@
 -define:ENABLE_LEGACY_INPUT_MANAGER
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
--r:"C:/csy/Unity/2022_Unity_KGA/220729_SkeletonAI/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll"
+-r:"C:/CSY/2022_Unity_KGA/220729_SkeletonAI/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.DeviceSimulatorModule.dll"
 -r:"C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/Managed/UnityEngine/UnityEditor.DiagnosticsModule.dll"
@@ -341,7 +341,14 @@
 "Assets/DissolveEmissionShader/DissolveSphere.cs"
 "Assets/EnemyAI.cs"
 "Assets/ITargetable.cs"
+"Assets/MyScripts/_EnemyAI.cs"
 "Assets/PlayerCtrl.cs"
+"Assets/Text/Enemy/EnemyHealth.cs"
+"Assets/Text/Enemy/EnemyMovement.cs"
+"Assets/Text/Enemy/EnemySensor.cs"
+"Assets/Text/PlayerAttack.cs"
+"Assets/Text/PlayerInput.cs"
+"Assets/Text/PlayerMovement.cs"
 -langversion:9.0
 
 /deterministic
